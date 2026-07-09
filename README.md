@@ -1,2 +1,2 @@
-# Technexus-MD-engineering-intership
+# Technexus-ML-engineering-intership
 My intership at Technexus role AI engineering
