@@ -1,1 +1,38 @@
+from groq import Groq
 
+
+client = Groq(api_key="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")
+
+print("Chatbot (Groq Streaming)")
+print("Type 'quit', 'exit', or 'bye' to stop.\n")
+
+while True:
+
+    user_input = input("You: ")
+
+    if user_input.lower() in ["quit", "exit", "bye"]:
+        print("Chatbot: Goodbye!")
+        break
+
+    print("Chatbot: ", end="", flush=True)
+
+    stream = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {
+                "role": "system",
+                "content": "You are Dream Home Project Assistant Chatbot. Help users with property searches, answer real estate questions, and guide them about bookings."
+            },
+            {
+                "role": "user",
+                "content": user_input
+            }
+        ],
+        stream=True
+    )
+
+    for chunk in stream:
+        if chunk.choices[0].delta.content:
+            print(chunk.choices[0].delta.content, end="", flush=True)
+
+    print()
